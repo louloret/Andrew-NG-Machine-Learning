@@ -14,6 +14,10 @@ C2 = B * A %this should work
 %C4 = B'* A % this should not work
 %and it doesnt
 
+C5 = A * B % this should work. and it does!
+C6 = B + A %this should not work. and it doesnt!
+C7 = B' + A % this should work. and it does!
+
 A2 = [16 2 3 13;
       5 11 10 8;
       9 7 6 12;
@@ -32,8 +36,30 @@ for i = 1:10
         v(i) = v(i) + A(i, j) * x(j);
     end
 end 
+
+v
 %breaking down the loop
 v(1), A(1, 1), x(1)
+v(1), A(1,2), x(2)
+v(1), A(1,3), x(3)
+
+%proved to myself my original intuition was correct
+%this is in fact taking the product of matrix A and vector x
+v(1) = v(1) + A(1,1)*x(1);
+v(1) = v(1) + A(1,2)*x(2);
+v(1) = v(1) + A(1,3)*x(3);
+v(1) = v(1) + A(1,4)*x(4);
+v(1) = v(1) + A(1,5)*x(5);
+v(1) = v(1) + A(1,6)*x(6);
+v(1) = v(1) + A(1,7)*x(7);
+v(1) = v(1) + A(1,8)*x(8);
+v(1) = v(1) + A(1,9)*x(9);
+v(1) = v(1) + A(1,10)*x(10)
+
+v_test = sum(A *x) % no
+v_test = A .* x % no 
+v_test = A * x
+v_test = Ax % no
 
 %vectorization
 %v = Ax % i dont think this will work
@@ -52,13 +78,30 @@ v4 = sum(A*x) %this will work in matlab but doesnt return same result
 
 v = rand(7,1)
 w = ones(7,1)
+test = v*w %incorrect dimensions
+test = v * w'
 
 z = 0;
 for i = 1:7
     z = z + v(i) * w(i)
 end 
+z
+z = sum(v .* w) % this is correct
+v .* w % element wise operator that multiplies
+
+z = v' * w % this also does the trick
+% i think i see why 
+
+z = v * w' % this should not get same answer
+% i was right
+
+z = v .* w % this should not get same answer because you will return a vector
+% i was right
+
 %breaking down loop
 v(1), w(1)
+z = z + v(1) * w(1)
+z = 
 
 z = sum(v.* w) %i think its this one
 % and it is !
@@ -81,8 +124,12 @@ for i = 1:7
     D(i, j) = X(i, j) / 4;
   end
 end
+A, B, C, D
+A = log(X) %gets same output
+B = X ^ 2 % doesn not get same output, why?
+C = X + 1 %same output
+D = X/4 % same output
 
-A = log(X)
-B = X ^ 2
-C = X + 1
-D = X/4
+test_matrix = [1 2;
+                4 5]
+suqar = test_matrix ^ 2
